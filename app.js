@@ -15,6 +15,7 @@ import helmet from "helmet";
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const logFile = join(__dirname, "blogchef.log");
+const PORT = process.env.PORT || 3000;
 app.use(helmet());
 app.use(compression());
 app.use("/assets", express.static(join(__dirname, "public")));
@@ -51,7 +52,7 @@ app.use("/", home);
 
 Promise.all([connectToDb()])
   .then(() =>
-    app.listen(3000, () => console.log("Blog Chef is cooking on port 3000"))
+    app.listen(PORT, () => console.log("Blog Chef is cooking on port 3000"))
   )
   .catch((error) => {
     console.error(`MongoDB Atlas Error: ${error}`);
